@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/casvicente/proyecto-clase-23-10#readme",
   "dependencies": {
+    "@tensorflow/tfjs-node": "^1.3.2",
     "body-parser": "^1.19.0",
     "connect-multiparty": "^2.2.0",
     "cors": "^2.8.5",
@@ -26,6 +27,7 @@
     "ibm-cloud-env": "^0.2.6",
     "ibm-watson": "^5.1.0",
     "morgan": "^1.9.1",
-    "nodemon": "^1.19.4"
+    "nodemon": "^1.19.4",
+    "sharp": "^0.23.3"
   }
 }

@@ -10,13 +10,6 @@ const visualRecognition = new VisualRecognitionV3({
     url: 'https://gateway.watsonplatform.net/visual-recognition/api',
 });
 
-
-
-
-
-
-
-
 let classifyImage = async (req, res) => {
         let files = req.files;
   

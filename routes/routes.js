@@ -7,6 +7,10 @@ const watsonDiscoveryController = require('../controllers/watsonDiscoveryControl
 const watsonVRController = require('../controllers/watsonVRController');
 router.get('/', (req, res) => {res.send("Hola!")});
 router.post('/classify/image', watsonVRController.classifyImage);
+
+const tensorFlowSController = require('../controllers/tensorFlowSController')
+router.post('/classify/detect', tensorFlowSController.detect);
+
 /*
 router.post('/search/discovery', watsonDiscoveryController.query)
 router.post('/test/webhook/assistant', (req, res) => {
