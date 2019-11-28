@@ -1,13 +1,12 @@
 const fs = require('fs');
 const VisualRecognitionV3 = require('ibm-watson/visual-recognition/v3');
 const { IamAuthenticator } = require('ibm-watson/auth');
-
 const visualRecognition = new VisualRecognitionV3({
-    version: '2018-03-19',
+    version: process.env.WATSON_VR_VERSION,
     authenticator: new IamAuthenticator({
-        apikey: 'z9So0JhexqWHtVz_csEKWql0XxVFgKoRtf2G3dlzEom-'
+        apikey: process.env.WATSON_VR_API_KEY
     }),
-    url: 'https://gateway.watsonplatform.net/visual-recognition/api',
+    url: process.env.WATSON_VR_URL,
 });
 
 let classifyImage = async (req, res) => {
@@ -16,8 +15,8 @@ let classifyImage = async (req, res) => {
         
         const classifyParams = {
             imagesFile: fs.createReadStream(files.webcam.path),
-            owners: ['IBM','me'],
-            threshold: 0.6,
+            owners: [process.env.WATSON_VR_CLASSIFY_OWNER],
+            threshold: process.env.WATSON_VR_CLASSIFY_THRESHOLD,
           };
           
           visualRecognition.classify(classifyParams)
