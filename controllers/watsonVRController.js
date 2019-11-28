@@ -1,6 +1,7 @@
 const fs = require('fs');
 const VisualRecognitionV3 = require('ibm-watson/visual-recognition/v3');
 const { IamAuthenticator } = require('ibm-watson/auth');
+console.log(process.env)
 const visualRecognition = new VisualRecognitionV3({
     version: process.env.WATSON_VR_VERSION,
     authenticator: new IamAuthenticator({
@@ -15,8 +16,10 @@ let classifyImage = async (req, res) => {
         
         const classifyParams = {
             imagesFile: fs.createReadStream(files.webcam.path),
-            owners: [process.env.WATSON_VR_CLASSIFY_OWNER],
+           // owners: [process.env.WATSON_VR_CLASSIFY_OWNER],
+            classifier_ids:[process.env.WATSON_VR_CLASSIFIER_ID],
             threshold: process.env.WATSON_VR_CLASSIFY_THRESHOLD,
+
           };
           
           visualRecognition.classify(classifyParams)
