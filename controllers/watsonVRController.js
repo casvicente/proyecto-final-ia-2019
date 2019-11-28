@@ -16,7 +16,7 @@ let classifyImage = async (req, res) => {
         
         const classifyParams = {
             imagesFile: fs.createReadStream(files.webcam.path),
-           // owners: [process.env.WATSON_VR_CLASSIFY_OWNER],
+           owners: [process.env.WATSON_VR_CLASSIFY_OWNER],
             classifier_ids:[process.env.WATSON_VR_CLASSIFIER_ID],
             threshold: process.env.WATSON_VR_CLASSIFY_THRESHOLD,
 
