@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+   
 </head>
 
 <body>
@@ -13,10 +14,22 @@
     <script src="webcam.js"></script>
 
     <div id="my_camera" style="width:320px; height:240px;"></div>
-    <div id="my_result"></div>
+    <div id="resultado"></div>
 
-    <script language="JavaScript">
-        Webcam.attach('#my_camera');
+    <a href="javascript:void(take_snapshot())">Take Snapshot</a>
+    <br>
+    <br>
+    <a href="javascript:void(take_snapshot_tf())">Take Snapshot TF</a>
+
+
+   
+
+
+
+
+
+    <!-- <script language="JavaScript">
+       Webcam.attach('#my_camera');
 
         function take_snapshot() {
             Webcam.snap(function (data_uri) {
@@ -33,6 +46,7 @@
             });
         }
 
+        /*
         function take_snapshot_tf() {
             Webcam.snap(function (data_uri) {
                 document.getElementById('my_result').innerHTML = '<img src="' + data_uri + '"/>';
@@ -46,13 +60,10 @@
                     // 'text' will be the raw response content
                 } );
             });
-        }
-    </script>
+        }/*
+        
+    </script> -->
+    <script src="index.js"></script>
 
-    <a href="javascript:void(take_snapshot())">Take Snapshot</a>
-    <br>
-    <br>
-    <a href="javascript:void(take_snapshot_tf())">Take Snapshot TF</a>
 </body>
-
 </html>

@@ -2,15 +2,15 @@ const tf = require('@tensorflow/tfjs-node');
 const fs = require('fs');
 const sharp = require('sharp')
 
-console.log("Hola tensor!")
-
 async function readImage(path) {
     const imageBuffer = fs.readFileSync(path);
     imageBufferResized = await sharp(imageBuffer).resize(100,100).toBuffer()
+    /* Para probar como recorta
+    imageBufferResizedToFile = await sharp(imageBuffer).resize(100,100).toFile('output.jpg', function(err) {return;}
+    */
     const tfimage = tf.node.decodeImage(imageBufferResized);
     return tfimage;
 }
-
 
 let detect = async (req, res) => {
     let files = req.files;
@@ -28,12 +28,14 @@ let detect = async (req, res) => {
 
     //tfimage = await readImage('paulo1.jpg'); //borrar!!!
 
-    newtensor = tfimage.expandDims()
+    newtensor = tfimage.expandDims();
+
     result = model.predict(newtensor);
     result.print()
     result.argMax(1).print()
     result.argMax(1).dataSync().map( m => console.log(labels[m]));
 
+    res.send(result.dataSync());
 }
 
 module.exports = {
