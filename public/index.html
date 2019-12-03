@@ -65,5 +65,18 @@
     </script> -->
     <script src="index.js"></script>
 
+    <a href="javascript:void(take_snapshot())">Take Snapshot</a>
+    <br>
+    <br>
+    <a href="javascript:void(take_snapshot_tf())">Take Snapshot TF</a>
+    <script src=https://assistant-web.watsonplatform.net/loadWatsonAssistantChat.js></script>
+    <script>
+    window.loadWatsonAssistantChat({
+        integrationID: "626ceb7f-0b18-4579-9695-b3bf78e842c8", // The ID of this integration.
+        region: "us-south" // The region your integration is hosted in.
+    }).then(function(instance){
+        instance.render();
+    });
+    </script>
 </body>
 </html>
