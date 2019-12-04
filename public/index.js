@@ -3,7 +3,7 @@
 //import { disposeVariables } from "@tensorflow/tfjs";
 //const fs = require('webcam.js');
 
-Webcam.attach('#my_camera');
+
 let labels = ['Vicente', 'Sebastian', 'Paulo', 'Maximiliano'];
 
 function printClassifier(classifier) {
@@ -35,10 +35,9 @@ function indexOfMax(arr) {
 
 function take_snapshot_tf() {
     let formData = new FormData();
-
-
+    let result;
         Webcam.snap(function (data_uri) {
-            document.getElementById('my_result').innerHTML = '<img src="' + data_uri + '"/>';
+            //document.getElementById('my_result').innerHTML = '<img src="' + data_uri + '"/>';
 
             Webcam.upload( data_uri, '/api/v1/classify/detect', function(code, text) {
                 console.log("Upload complete");
@@ -46,41 +45,67 @@ function take_snapshot_tf() {
                 console.log(text);
                 
                 let response = JSON.parse(text)
-              
-                var json_data = response;
-                var result = [];
-                for(var i in json_data)
-                    result.push([i, json_data [i]]);
-    
-                console.log(result);
-
-                let max = indexOfMax(result)
-                console.log(labels[max])
-
-
-                //document.getElementById('resultado').innerHTML = '<div id="res"> El Resultado es: </div>';
-                // <div id="my_result"> ' + labels[max] + ' </div>
+                document.getElementById('my_result').innerHTML = 'Marca de: ' + labels[response.max]
+                result = response;
             });
 
-    
-               /* divRespuesta.innerHTML = `
-                    <h2>Resultados</h2>
-                    <br/>
-                    <br/>
-                    <h3>Modelo Custom</h3>
-                    ${customClassifierHtml}
-                    <h3>Modelo Default</h3>
-                    ${defaultClassifierHtml}
-                    ` ;
-                    return customClassifier.classes[0].class;
-            })
-            .then(clazz => {
-                console.log('JJJJJJ')
-                buscarDiscovery(clazz)
-            })
-            .catch(error => console.error('Error:', error))*/
         });
+    return result;   
+}
 
 
-        
+function take_snapshot() {
+    let result;
+     Webcam.snap(function (data_uri) {
+         //document.getElementById('my_result').innerHTML = '<img src="' + data_uri + '"/>';
+
+         Webcam.upload( data_uri, '/api/v1/classify/image', function(code, text) {
+             console.log("Upload complete");
+             console.log(code);
+             console.log(text);
+             let response = JSON.parse(text)
+            console.log(response);
+            // document.getElementById('my_result').innerHTML = 'Marca de: ' + labels[response.max]
+            result = response;
+         } );
+     });
+     return result;
+}
+ 
+
+function take_snapshot_multi() {
+    let result = {
+        tf: {},
+        wvr: {},
+    }
+     Webcam.snap(function (data_uri) {
+         //document.getElementById('my_result').innerHTML = '<img src="' + data_uri + '"/>';
+
+         Webcam.upload( data_uri, '/api/v1/classify/image', function(code, text) {
+             console.log("Upload complete");
+             console.log(code);
+             console.log(text);
+             let response = JSON.parse(text)
+            console.log(response);
+            // document.getElementById('my_result').innerHTML = 'Marca de: ' + labels[response.max]
+            result.wvr = response;
+         } );
+
+
+         Webcam.upload( data_uri, '/api/v1/classify/detect', function(code, text) {
+            console.log("Upload complete");
+            console.log(code);
+            console.log(text);
+            
+            let response = JSON.parse(text)
+            document.getElementById('my_result').innerHTML = 'Marca de: ' + labels[response.max]
+            result.tf = response;
+        });
+     });
+     return result;
+}
+
+function registrarse() {
+    result = take_snapshot_multi();
+    console.log(result);
 }

@@ -12,6 +12,7 @@
 <body>
     <div>Camara</div>
     <script src="webcam.js"></script>
+    
    
 
     <table>
@@ -23,11 +24,12 @@
         </thead>
         <tbody>
             <tr>
-                <td>
+                <td >
                         <!-- MVP -->
                         <div id="my_camera" style="width:320px; height:240px;"></div>
-                        <div id="resultado"></div>
-            
+                        <script>Webcam.attach('#my_camera');</script>
+                        <div id="my_result"></div>
+                        <button onclick="registrarse();">Registrarse</button>
                         <a href="javascript:void(take_snapshot())">Take Snapshot</a>
                         <br>
                         <br>
@@ -52,41 +54,7 @@
 
 
 
-    <!-- <script language="JavaScript">
-       Webcam.attach('#my_camera');
-
-        function take_snapshot() {
-            Webcam.snap(function (data_uri) {
-                document.getElementById('my_result').innerHTML = '<img src="' + data_uri + '"/>';
-
-                Webcam.upload( data_uri, '/api/v1/classify/image', function(code, text) {
-                    console.log("Upload complete");
-                    console.log(code);
-                    console.log(text);
-                    // Upload complete!
-                    // 'code' will be the HTTP response code from the server, e.g. 200
-                    // 'text' will be the raw response content
-                } );
-            });
-        }
-
-        /*
-        function take_snapshot_tf() {
-            Webcam.snap(function (data_uri) {
-                document.getElementById('my_result').innerHTML = '<img src="' + data_uri + '"/>';
-
-                Webcam.upload( data_uri, '/api/v1/classify/detect', function(code, text) {
-                    console.log("Upload complete");
-                    console.log(code);
-                    console.log(text);
-                    // Upload complete!
-                    // 'code' will be the HTTP response code from the server, e.g. 200
-                    // 'text' will be the raw response content
-                } );
-            });
-        }/*
-        
-    </script> -->
+   
     <!-- Cargo el javascrit de la pagina-->
     <script src="index.js"></script>
     <!-- Cargo el asistente-->

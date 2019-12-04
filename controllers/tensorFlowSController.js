@@ -14,7 +14,7 @@ async function readImage(path) {
 
 let detect = async (req, res) => {
     let files = req.files;
-
+    console.log("aca");
     let labels = ['Vicente', 'Sebastian', 'Paulo', 'Maximiliano'];
     let model = await tf.loadLayersModel('file://model/model.json');
     model.summary();
@@ -26,8 +26,6 @@ let detect = async (req, res) => {
 
     tfimage = tfimage.div(255.0)
 
-    //tfimage = await readImage('paulo1.jpg'); //borrar!!!
-
     newtensor = tfimage.expandDims();
 
     result = model.predict(newtensor);
@@ -35,7 +33,11 @@ let detect = async (req, res) => {
     result.argMax(1).print()
     result.argMax(1).dataSync().map( m => console.log(labels[m]));
 
-    res.send(result.dataSync());
+    res.send(JSON.stringify({
+        max: result.argMax(1).dataSync()[0],
+        predict: Array.from(result.dataSync()),
+        raw: Array.from(result.dataSync())
+    }));
 }
 
 module.exports = {
