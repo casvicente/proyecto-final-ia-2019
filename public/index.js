@@ -81,7 +81,7 @@ function take_snapshot_multi(callback) {
     }
     let cantUploads = 0;
      Webcam.snap(function (data_uri) {
-        // document.getElementById('my_result').innerHTML = '<img src="' + data_uri + '"/>';
+         //document.getElementById('my_result').innerHTML = '<img src="' + data_uri + '"/>';
 
          Webcam.upload( data_uri, '/api/v1/classify/image', function(code, text) {
              console.log("Upload complete");
@@ -122,12 +122,13 @@ function registrarse() {
         let wvrPredict = result.wvr.predict;
         let suma = [];
         for (let index = 0; index < tfPredict.length; index++) {
-           suma.push(0*tfPredict[index] + wvrPredict[index]);
+           suma.push(tfPredict[index] + wvrPredict[index]);
         }
         console.log(suma);
         let indiceMax = indexOfMax(suma);
         console.log('INDICE MAX' + indiceMax)
         var newcontent = document.createElement('li');
+        newcontent.setAttribute('class', 'list-group-item');
         newcontent.innerHTML = (new Date()).toLocaleDateString('es-UY') + ' ' + (new Date()).toLocaleTimeString('es-UY') + ' <br>' +
         'Marca de (tensorflow): ' + labels[result.tf.max] + '<br>'
         + 'Marca de (watson): ' + labels[result.wvr.max];
