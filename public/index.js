@@ -23,9 +23,9 @@ function indexOfMax(arr) {
     var max = 0;
     var maxIndex = 0;
     for (var i = 1; i < arr.length; i++) {
-        if (arr[i][1] > max) {
-            maxIndex = arr[i][0];
-            max = arr[i][1];
+        if (arr[i] > max) {
+            maxIndex = i;
+            max = arr[i];
         }
     }
     return maxIndex;
@@ -73,13 +73,15 @@ function take_snapshot() {
 }
  
 
-function take_snapshot_multi() {
+function take_snapshot_multi(callback) {
+    Webcam.off('uploadComplete')
     let result = {
         tf: {},
         wvr: {},
     }
+    let cantUploads = 0;
      Webcam.snap(function (data_uri) {
-         //document.getElementById('my_result').innerHTML = '<img src="' + data_uri + '"/>';
+        // document.getElementById('my_result').innerHTML = '<img src="' + data_uri + '"/>';
 
          Webcam.upload( data_uri, '/api/v1/classify/image', function(code, text) {
              console.log("Upload complete");
@@ -87,7 +89,7 @@ function take_snapshot_multi() {
              console.log(text);
              let response = JSON.parse(text)
             console.log(response);
-            // document.getElementById('my_result').innerHTML = 'Marca de: ' + labels[response.max]
+            document.getElementById('infoWvr').value = JSON.stringify(response.raw, null, 2);
             result.wvr = response;
          } );
 
@@ -98,14 +100,36 @@ function take_snapshot_multi() {
             console.log(text);
             
             let response = JSON.parse(text)
-            document.getElementById('my_result').innerHTML = 'Marca de: ' + labels[response.max]
+            document.getElementById('infoTf').value = JSON.stringify(response.raw, null, 2);
             result.tf = response;
         });
+
+        Webcam.on( 'uploadComplete', function(code, text) {
+            cantUploads = cantUploads +1;
+            console.log("CANT UPLOADS" + cantUploads);
+            if (cantUploads == 2) {
+               callback(result)
+            }
+		} );
+		
      });
-     return result;
 }
 
 function registrarse() {
-    result = take_snapshot_multi();
+    result = take_snapshot_multi((result) => {
+        console.log(result);
+        let tfPredict = result.tf.predict;
+        let wvrPredict = result.wvr.predict;
+        let suma = [];
+        for (let index = 0; index < tfPredict.length; index++) {
+           suma.push(0*tfPredict[index] + wvrPredict[index]);
+        }
+        console.log(suma);
+        let indiceMax = indexOfMax(suma);
+        console.log('INDICE MAX' + indiceMax)
+        document.getElementById('my_result').innerHTML = 
+            'Marca de (tensorflow): ' + labels[result.tf.max] + '<br>'
+            + 'Marca de (watson): ' + labels[result.wvr.max];
+    });
     console.log(result);
 }

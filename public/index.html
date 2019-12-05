@@ -24,19 +24,19 @@
         </thead>
         <tbody>
             <tr>
-                <td >
+                <td style="min-width: 800px;">
                         <!-- MVP -->
                         <div id="my_camera" style="width:320px; height:240px;"></div>
                         <script>Webcam.attach('#my_camera');</script>
                         <div id="my_result"></div>
                         <button onclick="registrarse();">Registrarse</button>
-                        <a href="javascript:void(take_snapshot())">Take Snapshot</a>
-                        <br>
-                        <br>
-                        <a href="javascript:void(take_snapshot_tf())">Take Snapshot TF</a>   
+                       
                 </td>
                 <td>
-                        <!-- Info de debug-->
+                        <h3>Respuesta CNN:</h3>
+                        <textarea id='infoTf' cols="50" rows="10"></textarea>
+                        <h3>Respuesta Watson VR:</h3>
+                        <textarea id='infoWvr' cols="50" rows="10"></textarea>
 
 
                 </td>
