@@ -1,4 +1,6 @@
 const fs = require('fs');
+const sharp = require('sharp')
+
 const VisualRecognitionV3 = require('ibm-watson/visual-recognition/v3');
 const { IamAuthenticator } = require('ibm-watson/auth');
 console.log(process.env)
@@ -39,9 +41,10 @@ function classToInt(clase) {
 }
 let classifyImage = async (req, res) => {
         let files = req.files;
-        
+        //imageBufferResizedToFile = await sharp().resize(100,100).toFile('outputWatson.jpg', function(err) {console.log(err);return;})
+        imageBufferResized = await sharp(fs.readFileSync(files.webcam.path)).resize(100,100).toBuffer()
         const classifyParams = {
-            imagesFile: fs.createReadStream(files.webcam.path),
+            imagesFile: imageBufferResized,
            owners: [process.env.WATSON_VR_CLASSIFY_OWNER],
             classifier_ids:[process.env.WATSON_VR_CLASSIFIER_ID],
             threshold: process.env.WATSON_VR_CLASSIFY_THRESHOLD,

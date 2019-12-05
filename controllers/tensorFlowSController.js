@@ -6,8 +6,8 @@ async function readImage(path) {
     const imageBuffer = fs.readFileSync(path);
     imageBufferResized = await sharp(imageBuffer).resize(100,100).toBuffer()
     /* Para probar como recorta
-    imageBufferResizedToFile = await sharp(imageBuffer).resize(100,100).toFile('output.jpg', function(err) {return;}
-    */
+    imageBufferResizedToFile = await sharp(imageBuffer).resize(100,100).toFile('output.jpg', function(err) {return;})
+   */
     const tfimage = tf.node.decodeImage(imageBufferResized);
     return tfimage;
 }

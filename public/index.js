@@ -127,9 +127,11 @@ function registrarse() {
         console.log(suma);
         let indiceMax = indexOfMax(suma);
         console.log('INDICE MAX' + indiceMax)
-        document.getElementById('my_result').innerHTML = 
-            'Marca de (tensorflow): ' + labels[result.tf.max] + '<br>'
-            + 'Marca de (watson): ' + labels[result.wvr.max];
+        var newcontent = document.createElement('li');
+        newcontent.innerHTML = (new Date()).toLocaleDateString('es-UY') + ' ' + (new Date()).toLocaleTimeString('es-UY') + ' <br>' +
+        'Marca de (tensorflow): ' + labels[result.tf.max] + '<br>'
+        + 'Marca de (watson): ' + labels[result.wvr.max];
+        document.getElementById('my_result').appendChild(newcontent);
     });
     console.log(result);
 }
