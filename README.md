@@ -26,7 +26,7 @@ $ cp .env.example .env
 ``` bash
 $ npm install
 ```
-4. Ejecutar la aplicaión:
+4. Ejecutar la aplicación:
 ``` bash
 $ npm start
 ```
